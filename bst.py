@@ -4,6 +4,14 @@ from typing import *
 from dataclasses import dataclass
 sys.setrecursionlimit(10**6)
 
+BinTree: TypeAlias = Union[None,"Node"]
+
+@dataclass(frozen=True)
+class Node:
+    val: Any
+    left: BinTree
+    right: BinTree
+
 
 def comes_before(a: Any, b: Any) -> bool:
     return a < b
