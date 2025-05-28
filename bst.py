@@ -3,6 +3,9 @@ import unittest
 from typing import *
 from dataclasses import dataclass
 sys.setrecursionlimit(10**6)
+import random
+import time
+import matplotlib.pyplot as plt 
 
 BinTree: TypeAlias = Union[None,"Node"]
 
@@ -86,7 +89,72 @@ def find_min(bt:BinTree)->Any:
         return bt.val
     else: return find_min(bt.left)
 
-             
+
+
+trials = 10
+
+#measuring and plotting the avg running time of range(n) using 10 diff values
+def measure_insert():
+
+
+    diff_inputs = list(range(100000, 1100000, 100000)) 
+    avg_times = []
+    for inputs in diff_inputs:
+        times = []
+
+        fbst = frozenBinarySearchTree(comes_before, None)
+        for j in range(inputs):
+            rand = random.random()
+            fbst = insert(fbst, rand)
+
+        for i in range(trials):
+
+            start = time.perf_counter()
+            thing = insert(fbst,0.9999999999)
+            end = time.perf_counter()
+            times.append(end - start)
+        avg = sum(times) / trials
+        avg_times.append(avg)
+        print(f"input {inputs}: Avg time = {avg:.6f} seconds")
+
+    plt.figure()
+    plt.plot(diff_inputs,avg_times)
+    plt.title("BST Insert Time vs Tree Size")
+    plt.xlabel("Input (n)")
+    plt.ylabel("Average time (s)")
+    plt.grid(True)
+    plt.show()
+
+def measure_search():
+
+
+    diff_inputs = list(range(100000, 1100000, 100000)) 
+    avg_times = []
+    for inputs in diff_inputs:
+        times = []
+
+        fbst = frozenBinarySearchTree(comes_before, None)
+        for j in range(inputs):
+            rand = random.random()
+            fbst = insert(fbst, rand)
+
+        for i in range(trials):
+
+            start = time.perf_counter()
+            thing = lookup(fbst,0.9999999999)
+            end = time.perf_counter()
+            times.append(end - start)
+        avg = sum(times) / trials
+        avg_times.append(avg)
+        print(f"input {inputs}: Avg time = {avg:.6f} seconds")
+
+    plt.figure()
+    plt.plot(diff_inputs,avg_times)
+    plt.title("BST Search Time vs Tree Size")
+    plt.xlabel("Input (n)")
+    plt.ylabel("Average time (s)")
+    plt.grid(True)
+    plt.show()          
                  
 
 def example_fun(x : int) -> bool:
@@ -135,4 +203,6 @@ class Tests(unittest.TestCase):
 
 
 if (__name__ == '__main__'):
+    measure_insert()
+    measure_search()
     unittest.main()

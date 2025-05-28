@@ -38,13 +38,13 @@ class BSTTests(unittest.TestCase):
         self.assertEqual(fbst,fbst2)
 
     def test_euclidean_ordering(self):
-        point1 = Tuple[1,1]
-        point2 = Tuple[1,3]
-        point3 = Tuple[1,2]
+        point1 = (1,1)
+        point2 = (1,3)
+        point3 = (1,2)
 
         tree:BinTree = Node(point1,None,Node(point2,Node(point3,None,None),None))
-        fbst = frozenBinarySearchTree(alphabetic_ordering,tree)
-        fbst2 = frozenBinarySearchTree(alphabetic_ordering,None)
+        fbst = frozenBinarySearchTree(euclidean_ordering,tree)
+        fbst2 = frozenBinarySearchTree(euclidean_ordering,None)
         fbst2 = insert(fbst2,point1)
         fbst2 = insert(fbst2,point2)
         fbst2 = insert(fbst2,point3)
